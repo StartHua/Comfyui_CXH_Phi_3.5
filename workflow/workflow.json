@@ -1,0 +1,412 @@
+{
+  "last_node_id": 14,
+  "last_link_id": 14,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "CXH_Phi_load",
+      "pos": [
+        710,
+        140
+      ],
+      "size": {
+        "0": 315,
+        "1": 106
+      },
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "phi_mode",
+          "type": "CXH_PHI_PIP",
+          "links": [
+            1
+          ],
+          "slot_index": 0,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CXH_Phi_load"
+      },
+      "widgets_values": [
+        "Phi-3.5-vision-instruct",
+        4,
+        "eager"
+      ]
+    },
+    {
+      "id": 2,
+      "type": "CXH_Phi_Run",
+      "pos": [
+        680,
+        290
+      ],
+      "size": {
+        "0": 400,
+        "1": 200
+      },
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "phi_mode",
+          "type": "CXH_PHI_PIP",
+          "link": 1
+        },
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 9
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            2
+          ],
+          "slot_index": 0,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CXH_Phi_Run"
+      },
+      "widgets_values": [
+        "这个图片里面人物头发是什么颜色，只需要输出颜色",
+        0,
+        500
+      ]
+    },
+    {
+      "id": 3,
+      "type": "easy showAnything",
+      "pos": [
+        1103,
+        293
+      ],
+      "size": {
+        "0": 494.90753173828125,
+        "1": 359.5273742675781
+      },
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "anything",
+          "type": "*",
+          "link": 2
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "easy showAnything"
+      },
+      "widgets_values": [
+        "\n\nThe person in the image has brown hair."
+      ]
+    },
+    {
+      "id": 4,
+      "type": "LoadImage",
+      "pos": [
+        328,
+        281
+      ],
+      "size": {
+        "0": 315,
+        "1": 314
+      },
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            9
+          ],
+          "slot_index": 0,
+          "shape": 3
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "21ff20e864cc97d660fb55333fd7647.png",
+        "image"
+      ]
+    },
+    {
+      "id": 10,
+      "type": "easy showAnything",
+      "pos": [
+        1102,
+        842
+      ],
+      "size": {
+        "0": 494.90753173828125,
+        "1": 359.5273742675781
+      },
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "anything",
+          "type": "*",
+          "link": 12
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "easy showAnything"
+      },
+      "widgets_values": [
+        " In the heart of a serene, sun-dappled meadow, a young girl, her hair a cascade of golden waves, stands with a contemplative gaze fixed on the horizon where the sky kisses the earth. Her silhouette, framed by the gentle undulations of the grass, is a study in contrasts: the soft, earthy tones of her attire blend seamlessly with the vibrant greens and the rich, warm hues of the sun-soaked landscape. The air is alive with the subtle rustle of leaves, a whispering symphony that complements the girl's quiet introspection. Her eyes, a deep cerulean blue, reflect the myriad shades of the meadow, from the soft lavender of the wildflowers to the golden glow of the setting sun.\n\nThe meadow is a tapestry of life, woven with the intricate details of nature's handiwork. The girl's fingers, slightly stained with the remnants of a day spent in the wild, trace the delicate veins of a nearby leaf, its surface a mosaic of green and silver, shimmering with the last rays of the sun. A butterfly, its wings a kaleidoscope of iridescent colors, flutters by, its path a fleeting dance of light and shadow. The girl's presence is a gentle force, her posture relaxed yet poised, as if she is both a part of the meadow and a silent observer of its beauty. The air carries the scent of wildflowers, a sweet, intoxicating perfume that mingles with the earthy aroma of the soil, creating a sensory experience that is as rich and complex as the scene itself.\n\nBeyond the girl, the meadow stretches into the distance, a vast expanse of untamed beauty that seems to hold countless stories within its embrace. The sky, a canvas of deepening blues and purples, is streaked with the last vestiges of sunlight, casting a soft, ethereal glow over the landscape. A gentle breeze, carrying the promise of evening, stirs the grass, sending ripples across the surface of a nearby pond, where the reflection of the sky is mirrored in the still water. The scene is a moment frozen in time, a snapshot of tranquility and wonder that captures the essence of nature's enduring allure. Here, in this moment, the girl and the meadow are intertwined, each a reflection of the other's beauty and complexity, creating a visual narrative that is both profound and deeply moving."
+      ]
+    },
+    {
+      "id": 11,
+      "type": "CXH_Phi_chat_load",
+      "pos": [
+        700,
+        707
+      ],
+      "size": {
+        "0": 315,
+        "1": 82
+      },
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "phi_min_mode",
+          "type": "PHI_MIN_MODE",
+          "links": [
+            11
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CXH_Phi_chat_load"
+      },
+      "widgets_values": [
+        "Phi-3.5-mini-instruct",
+        "eager"
+      ]
+    },
+    {
+      "id": 12,
+      "type": "CXH_Phi_chat_min",
+      "pos": [
+        655,
+        858
+      ],
+      "size": [
+        400,
+        200
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "PHI_MIN_MODE",
+          "link": 11
+        },
+        {
+          "name": "prompt",
+          "type": "STRING",
+          "link": 14,
+          "widget": {
+            "name": "prompt"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            12
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CXH_Phi_chat_min"
+      },
+      "widgets_values": [
+        "给我说个笑话",
+        0,
+        1024
+      ]
+    },
+    {
+      "id": 13,
+      "type": "CXH_Custom_Prompt",
+      "pos": [
+        404,
+        887
+      ],
+      "size": {
+        "0": 210,
+        "1": 147.99998474121094
+      },
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "content",
+          "type": "STRING",
+          "link": 13,
+          "widget": {
+            "name": "content"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "out",
+          "type": "STRING",
+          "links": [
+            14
+          ],
+          "slot_index": 0,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CXH_Custom_Prompt"
+      },
+      "widgets_values": [
+        "画面增强",
+        "",
+        "[input]",
+        null
+      ],
+      "color": "#1b4669",
+      "bgcolor": "#29699c"
+    },
+    {
+      "id": 14,
+      "type": "JWString",
+      "pos": [
+        311,
+        748
+      ],
+      "size": {
+        "0": 315,
+        "1": 58
+      },
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            13
+          ],
+          "slot_index": 0,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "JWString"
+      },
+      "widgets_values": [
+        "一个女孩子"
+      ]
+    }
+  ],
+  "links": [
+    [
+      1,
+      1,
+      0,
+      2,
+      0,
+      "CXH_PHI_PIP"
+    ],
+    [
+      2,
+      2,
+      0,
+      3,
+      0,
+      "*"
+    ],
+    [
+      9,
+      4,
+      0,
+      2,
+      1,
+      "IMAGE"
+    ],
+    [
+      11,
+      11,
+      0,
+      12,
+      0,
+      "PHI_MIN_MODE"
+    ],
+    [
+      12,
+      12,
+      0,
+      10,
+      0,
+      "*"
+    ],
+    [
+      13,
+      14,
+      0,
+      13,
+      0,
+      "STRING"
+    ],
+    [
+      14,
+      13,
+      0,
+      12,
+      1,
+      "STRING"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.6588450000000009,
+      "offset": [
+        169.98992059981356,
+        16.38608721329839
+      ]
+    }
+  },
+  "version": 0.4
+}

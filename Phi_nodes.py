@@ -82,8 +82,8 @@ class CXH_Phi_Run:
             }
         }
 
-    RETURN_TYPES = ("CXH_PHI_PIP",)
-    RETURN_NAMES = ("phi_mode",)
+    RETURN_TYPES = ("STRING",)
+    RETURN_NAMES = ("out",)
     FUNCTION = "gen"
     CATEGORY = "CXH/LLM"
 
@@ -191,6 +191,7 @@ class CXH_Phi_chat_min:
         }
 
     RETURN_TYPES = ("STRING",)
+    RETURN_NAMES = ("out",)
     FUNCTION = "inference"
     CATEGORY = "CXH/GPT"
 
