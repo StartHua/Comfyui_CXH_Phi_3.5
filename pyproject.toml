@@ -1,0 +1,15 @@
+[project]
+name = "comfyui_cxh_phi_3.5"
+description = "Phi-3.5-vision-instruct fast talk with image !\nFast , Fast ,Fast!\n1.Phi-3.5-vision-instruct"
+version = "1.0.0"
+license = {file = "LICENSE"}
+dependencies = ["flash_attn==2.5.8", "numpy==1.24.4", "Pillow==10.3.0", "Requests==2.31.0", "# torch==2.3.0", "# torchvision==0.18.0", "transformers==4.43.0", "accelerate==0.30.0"]
+
+[project.urls]
+Repository = "https://github.com/StartHua/Comfyui_CXH_Phi_3.5"
+#  Used by Comfy Registry https://comfyregistry.org
+
+[tool.comfy]
+PublisherId = ""
+DisplayName = "Comfyui_CXH_Phi_3.5"
+Icon = ""
