@@ -3,7 +3,7 @@ import torch
 import folder_paths
 import json
 
-from transformers import AutoModelForCausalLM 
+from transformers import AutoModelForCausalLM,AutoTokenizer, pipeline
 from transformers import AutoProcessor
 
 from PIL import Image
@@ -82,7 +82,8 @@ class CXH_Phi_Run:
             }
         }
 
-    RETURN_TYPES = ("STRING",)
+    RETURN_TYPES = ("CXH_PHI_PIP",)
+    RETURN_NAMES = ("phi_mode",)
     FUNCTION = "gen"
     CATEGORY = "CXH/LLM"
 
@@ -131,3 +132,93 @@ class CXH_Phi_Run:
         clean_up_tokenization_spaces=False)[0]
         
         return (response,)
+
+class CXH_Phi_chat_load:
+    def __init__(self):
+        pass
+    @classmethod
+    def INPUT_TYPES(s):
+        return {
+            "required": {
+                "model": (["Phi-3.5-mini-instruct"],),
+                "attention": ([ 'flash_attention_2', 'sdpa', 'eager'],{"default": 'eager'}),
+            },
+        }
+
+    RETURN_TYPES = ("PHI_MIN_MODE",)
+    RETURN_NAMES = ("phi_min_mode",)
+    FUNCTION = "inference"
+    CATEGORY = "CXH/GPT"
+
+    def inference(self,model,attention):
+        # 下载本地
+        model_id = f"microsoft/{model}"
+        model_checkpoint = os.path.join(folder_paths.models_dir, 'LLM', os.path.basename(model_id))
+        if not os.path.exists(model_checkpoint):
+            from huggingface_hub import snapshot_download
+            snapshot_download(repo_id=model_id, local_dir=model_checkpoint, local_dir_use_symlinks=False)
+
+        model = AutoModelForCausalLM.from_pretrained(
+            model_checkpoint, 
+            device_map="cuda", 
+            torch_dtype="auto", 
+            trust_remote_code=True,
+            _attn_implementation= attention
+            ) 
+
+        tokenizer = AutoTokenizer.from_pretrained(model_checkpoint)
+
+        phi_min_mode = {
+            "model":model,
+            "tokenizer":tokenizer
+        }
+
+        return (phi_min_mode,)
+
+class CXH_Phi_chat_min:
+    def __init__(self):
+        pass
+
+    @classmethod
+    def INPUT_TYPES(s):
+        return {
+            "required": {
+                "model": ("PHI_MIN_MODE",),
+                "prompt": ("STRING",{"default": '', "multiline": True}),
+                "temperature": ("FLOAT", {"default": 0, "min": 0.0, "max": 1.0, "step": 0.01}),
+                "max_new_tokens": ("INT", {"default": 1024, "min": 100, "max": 20000, "step": 500}),  
+            },
+        }
+
+    RETURN_TYPES = ("STRING",)
+    FUNCTION = "inference"
+    CATEGORY = "CXH/GPT"
+
+    def inference(self,model,prompt, temperature,max_new_tokens):
+        model_cache = model["model"]
+        tokenizer = model["tokenizer"]
+
+        # text 
+        messages = [
+            {"role": "system", "content": "You are a helpful AI assistant."},
+            {"role": "user", "content": prompt},
+        ]
+
+        pipe = pipeline(
+            "text-generation",
+            model=model_cache,
+            tokenizer=tokenizer,
+        )
+
+        generation_args = {
+            "max_new_tokens": max_new_tokens,
+            "return_full_text": False,
+            "temperature":temperature,
+            "do_sample": False,
+        }
+        
+        output = pipe(messages, **generation_args)
+        result = output[0]['generated_text']
+        
+        
+        return (result,)
